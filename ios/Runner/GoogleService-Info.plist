@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1014434234245-jsi46l5914adb1s4mdbmkju4p3beinle.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1014434234245-jsi46l5914adb1s4mdbmkju4p3beinle</string>
+	<key>API_KEY</key>
+	<string>AIzaSyB3c3lSHAn11fS23Ynau-TRI7w5l4BR54E</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1014434234245</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.testing.waggy</string>
+	<key>PROJECT_ID</key>
+	<string>waggy-352403</string>
+	<key>STORAGE_BUCKET</key>
+	<string>waggy-352403.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1014434234245:ios:6fc4ff9b94013910690eec</string>
+</dict>
+</plist>

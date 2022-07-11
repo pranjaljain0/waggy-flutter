@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1014434234245",
+    "project_id": "waggy-352403",
+    "storage_bucket": "waggy-352403.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1014434234245:android:47e4d30838caac1b690eec",
+        "android_client_info": {
+          "package_name": "com.example.waggy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1014434234245-tbfb081dnrgtt80advj39dpaoo7bqtjm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgvhfgSfspECP0UurNhVzmccidMX5D8LY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1014434234245-tbfb081dnrgtt80advj39dpaoo7bqtjm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1014434234245-jsi46l5914adb1s4mdbmkju4p3beinle.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.testing.waggy"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
