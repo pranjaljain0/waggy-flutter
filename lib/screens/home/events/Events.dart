@@ -11,7 +11,27 @@ class Events extends StatefulWidget {
   State<Events> createState() => _EventsState();
 }
 
+class Date {
+  int? date;
+  String? day;
+  String? dayOfWeek;
+  Date({this.date, this.day, this.dayOfWeek});
+}
+
 class _EventsState extends State<Events> {
+  List<Date> dates = [
+    Date(date: 8, day: "Jun", dayOfWeek: "Mon"),
+    Date(date: 9, day: "Jun", dayOfWeek: "Tue"),
+    Date(date: 10, day: "Jun", dayOfWeek: "Wed"),
+    Date(date: 11, day: "Jun", dayOfWeek: "Thu"),
+    Date(date: 12, day: "Jun", dayOfWeek: "Fri"),
+    Date(date: 13, day: "Jun", dayOfWeek: "Sat"),
+    Date(date: 14, day: "Jun", dayOfWeek: "Sun"),
+  ];
+  Date selectedDate = Date(date: 8, day: "Jun", dayOfWeek: "Mon");
+
+  String selectedEventType = "All";
+  List<String> eventTypes = ["All", "Sport", "Adventure", "Art"];
   onClickHandler() {
     Navigator.push(
       context,
@@ -182,18 +202,18 @@ class _EventsState extends State<Events> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      dateChip("02", "Mon", false),
-                      dateChip("03", "Tue", false),
-                      dateChip("04", "Wed", true),
-                      dateChip("05", "Thu", false),
-                      dateChip("06", "Fri", false),
-                      dateChip("07", "Sat", false),
-                      dateChip("08", "Sun", false),
-                    ],
-                  ),
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: dates
+                          .map((date) => dateChip(
+                              date.date.toString(),
+                              date.dayOfWeek.toString(),
+                              selectedDate.date == date.date &&
+                                  selectedDate.day == date.day,
+                              () => setState(() {
+                                    selectedDate = date;
+                                  })))
+                          .toList()),
                 ),
                 Padding(
                   padding:
@@ -203,12 +223,14 @@ class _EventsState extends State<Events> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        chip("All", true),
-                        chip("Sports", false),
-                        chip("Adventures", false),
-                        chip("Art", false),
-                      ],
+                      children: eventTypes
+                          .map((event) => chip(
+                              event,
+                              event == selectedEventType,
+                              () => setState(() {
+                                    selectedEventType = event;
+                                  })))
+                          .toList(),
                     ),
                   ),
                 ),
@@ -246,90 +268,98 @@ class _EventsState extends State<Events> {
   }
 }
 
-Widget dateChip(String date, String day, bool isActive) {
-  return Container(
-    height: 70,
-    width: 45,
-    decoration: BoxDecoration(
-        gradient: isActive
-            ? const LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  AppColors.PRIMARY_COLOR_LIGHT,
-                  AppColors.PRIMARY_COLOR,
-                ],
-              )
-            : LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  AppColors.PRIMARY_COLOR.withOpacity(0),
-                  AppColors.PRIMARY_COLOR.withOpacity(0),
-                ],
-              ),
-        borderRadius: const BorderRadius.all(Radius.circular(10))),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(
-          date,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-            color: isActive
-                ? AppColors.WHITE_COLOR
-                : AppColors.BLACK_COLOR.withOpacity(0.8),
+Widget dateChip(String date, String day, bool isActive,
+    GestureTapCallback gestureTapCallback) {
+  return GestureDetector(
+    onTap: gestureTapCallback,
+    child: Container(
+      height: 70,
+      width: 45,
+      decoration: BoxDecoration(
+          gradient: isActive
+              ? const LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    AppColors.PRIMARY_COLOR_LIGHT,
+                    AppColors.PRIMARY_COLOR,
+                  ],
+                )
+              : LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    AppColors.PRIMARY_COLOR.withOpacity(0),
+                    AppColors.PRIMARY_COLOR.withOpacity(0),
+                  ],
+                ),
+          borderRadius: const BorderRadius.all(Radius.circular(10))),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            date,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+              color: isActive
+                  ? AppColors.WHITE_COLOR
+                  : AppColors.BLACK_COLOR.withOpacity(0.8),
+            ),
           ),
-        ),
-        Text(
-          day,
-          style: TextStyle(
-            fontSize: 12,
-            color: isActive
-                ? AppColors.WHITE_COLOR
-                : AppColors.BLACK_COLOR.withOpacity(0.8),
+          Text(
+            day,
+            style: TextStyle(
+              fontSize: 12,
+              color: isActive
+                  ? AppColors.WHITE_COLOR
+                  : AppColors.BLACK_COLOR.withOpacity(0.8),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
+      padding: const EdgeInsets.all(10.0),
     ),
-    padding: const EdgeInsets.all(10.0),
   );
 }
 
-Widget chip(String label, bool isActive) {
+Widget chip(
+    String label, bool isActive, GestureTapCallback gestureTapCallback) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 8),
-    child: Container(
-        decoration: BoxDecoration(
-            gradient: isActive
-                ? const LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      AppColors.PRIMARY_COLOR_LIGHT,
-                      AppColors.PRIMARY_COLOR,
-                    ],
-                  )
-                : LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      AppColors.BLACK_COLOR.withOpacity(0.1),
-                      AppColors.BLACK_COLOR.withOpacity(0.1),
-                    ],
-                  ),
-            borderRadius: const BorderRadius.all(Radius.circular(10))),
-        child: Text(
-          label,
-          style: TextStyle(
-            fontSize: 16,
-            color: isActive
-                ? AppColors.WHITE_COLOR
-                : AppColors.BLACK_COLOR.withOpacity(0.6),
+    child: GestureDetector(
+      onTap: gestureTapCallback,
+      child: Container(
+          decoration: BoxDecoration(
+              gradient: isActive
+                  ? const LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        AppColors.PRIMARY_COLOR_LIGHT,
+                        AppColors.PRIMARY_COLOR,
+                      ],
+                    )
+                  : LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        AppColors.BLACK_COLOR.withOpacity(0.1),
+                        AppColors.BLACK_COLOR.withOpacity(0.1),
+                      ],
+                    ),
+              borderRadius: const BorderRadius.all(Radius.circular(10))),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 16,
+              color: isActive
+                  ? AppColors.WHITE_COLOR
+                  : AppColors.BLACK_COLOR.withOpacity(0.6),
+            ),
           ),
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
+    ),
   );
 }

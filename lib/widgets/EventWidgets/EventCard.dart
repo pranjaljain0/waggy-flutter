@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:waggy/constants/Colors.dart';
 
 class EventCard extends StatelessWidget {
-  final onClickHandler;
+  final Function onClickHandler;
   const EventCard({Key? key, required this.onClickHandler}) : super(key: key);
 
   @override
@@ -36,7 +36,7 @@ class EventCard extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: Container(
-                  height: 70,
+                  height: 80,
                   width: 200,
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
