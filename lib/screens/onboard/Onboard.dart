@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:waggy/constants/Colors.dart';
 import 'package:waggy/screens/home/Home.dart';
@@ -8,8 +7,7 @@ import 'package:waggy/screens/onboard/pages/OnBoardAge.dart';
 import 'package:waggy/utils/DataHandler.dart';
 
 class Onboard extends StatefulWidget {
-  final User user;
-  const Onboard({Key? key, required this.user}) : super(key: key);
+  const Onboard({Key? key}) : super(key: key);
 
   @override
   State<Onboard> createState() => _OnboardState();
@@ -106,14 +104,9 @@ class _OnboardState extends State<Onboard> {
                               pageNo += 1;
                             });
                           } else {
-                            DataHandler.newPetDataInsertion(
-                                data: petData, uid: widget.user.uid);
                             Navigator.pushReplacement(
                               context,
-                              MaterialPageRoute(
-                                  builder: (context) => Home(
-                                        user: widget.user,
-                                      )),
+                              MaterialPageRoute(builder: (context) => Home()),
                             );
                           }
                         },

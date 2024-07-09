@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:waggy/constants/Colors.dart';
 import 'package:waggy/screens/AuthScreen.dart';
@@ -39,26 +38,7 @@ class _SplashState extends State<Splash> {
       }
     }
 
-    Future.delayed(const Duration(milliseconds: 2000), () async {
-      FirebaseAuth.instance.authStateChanges().listen((User? user) async {
-        if (user == null) {
-          checkShowLoadingStatus(context);
-        } else {
-          var data = await DataHandler.getUsersPet(uid: user.uid);
-          if (data == null) {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (context) => Onboard(
-                      user: user,
-                    )));
-          } else {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (context) => Home(
-                      user: user,
-                    )));
-          }
-        }
-      });
-    });
+    Future.delayed(const Duration(milliseconds: 2000), () async {});
 
     return Scaffold(
       body: Container(

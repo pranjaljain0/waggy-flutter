@@ -1,6 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:waggy/constants/Colors.dart';
 import 'package:waggy/screens/home/Health/HealthPane.dart';
 import 'package:waggy/screens/home/NGOs/NGOPane.dart';
@@ -13,9 +11,7 @@ import 'package:waggy/widgets/BottomNav.dart';
 import 'package:location/location.dart';
 
 class Home extends StatefulWidget {
-  final User user;
-
-  const Home({Key? key, required this.user}) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
@@ -30,7 +26,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   late bool _serviceEnabled;
   late PermissionStatus _permissionGranted;
   late LocationData _locationData;
-  final geo = Geoflutterfire();
 
   var pages = [
     const Recommendation(),
@@ -57,14 +52,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       }
     }
     _locationData = await location.getLocation();
-    location.onLocationChanged.listen((currentLocation) {
-      GeoFirePoint _currentLocation = geo.point(
-          latitude: currentLocation.latitude!,
-          longitude: currentLocation.longitude!);
-
-      DataHandler.updateUserLocation(
-          geoData: _currentLocation.data, uid: widget.user.uid);
-    });
+    location.onLocationChanged.listen((currentLocation) {});
   }
 
   _setSelectedIndex(index) {

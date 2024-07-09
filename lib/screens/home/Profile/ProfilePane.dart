@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:waggy/constants/Colors.dart';
 import 'package:waggy/screens/Splash.dart';
@@ -18,7 +17,7 @@ class ProfilePane extends StatefulWidget {
 
 class _ProfilePaneState extends State<ProfilePane> {
   _signOut(context) {
-    Authentication.signOut(context: context);
+    // Authentication.signOut(context: context);
   }
 
   @override

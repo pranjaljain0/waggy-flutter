@@ -2,9 +2,7 @@ import "package:flutter/material.dart";
 import 'package:waggy/constants/Colors.dart';
 import 'package:waggy/screens/home/Home.dart';
 import 'package:waggy/screens/onboard/Onboard.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:waggy/utils/Authenticaton.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:waggy/utils/DataHandler.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -44,101 +42,101 @@ class _AuthScreenState extends State<AuthScreen> {
     super.dispose();
   }
 
-  void handleGoogleLogin(context) async {
-    User? user = await Authentication.signInWithGoogle(context: context);
+  // void handleGoogleLogin(context) async {
+  //   User? user = await Authentication.signInWithGoogle(context: context);
 
-    if (user != null) {
-      DataHandler.signUpDataInsertion(uid: user.uid, data: {
-        'displayName': user.displayName,
-        'email': user.email,
-        'emailVerified': user.emailVerified,
-        'photoURL': user.photoURL,
-        'uid': user.uid
-      });
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) => Home(
-                  user: user,
-                ),
-            maintainState: false),
-      );
-    }
-  }
+  //   if (user != null) {
+  //     DataHandler.signUpDataInsertion(uid: user.uid, data: {
+  //       'displayName': user.displayName,
+  //       'email': user.email,
+  //       'emailVerified': user.emailVerified,
+  //       'photoURL': user.photoURL,
+  //       'uid': user.uid
+  //     });
+  //     Navigator.pushReplacement(
+  //       context,
+  //       MaterialPageRoute(
+  //           builder: (context) => Home(
+  //                 user: user,
+  //               ),
+  //           maintainState: false),
+  //     );
+  //   }
+  // }
 
   void handleFacebookLogin() {}
 
-  void handlePasswordBasedAuth(emailAddress, password) async {
-    setState(() {
-      loading = true;
-    });
+  // void handlePasswordBasedAuth(emailAddress, password) async {
+  //   setState(() {
+  //     loading = true;
+  //   });
 
-    try {
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: emailAddress, password: password)
-          .then((value) => {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => Home(
-                            user: value.user!,
-                          )),
-                )
-              });
-    } on FirebaseAuthException catch (e) {
-      setState(() {
-        loading = false;
-        errorMessage = "";
-      });
-      if (e.code == 'user-not-found') {
-        try {
-          await FirebaseAuth.instance
-              .createUserWithEmailAndPassword(
-                email: emailAddress,
-                password: password,
-              )
-              .then((value) => {
-                    DataHandler.signUpDataInsertion(
-                        uid: value.user!.uid,
-                        data: {
-                          'displayName': value.user!.displayName,
-                          'email': value.user!.email,
-                          'emailVerified': value.user!.emailVerified,
-                          'photoURL': value.user!.photoURL,
-                          'uid': value.user!.uid,
-                          // 'location':new
-                        }),
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Onboard(
-                                user: value.user!,
-                              )),
-                    )
-                  });
-        } on FirebaseAuthException catch (e) {
-          if (e.code == 'weak-password') {
-            setState(() {
-              errorMessage = 'The password provided is too weak.';
-            });
-          } else if (e.code == 'email-already-in-use') {
-            setState(() {
-              errorMessage = 'The account already exists for that email.';
-            });
-          }
-        } catch (e) {
-          setState(() {
-            errorMessage = 'Some unknown error occoured.';
-          });
-          // print(e);
-        }
-      } else if (e.code == 'wrong-password') {
-        setState(() {
-          errorMessage = 'Wrong password provided for that user.';
-        });
-      }
-    }
-  }
+  //   try {
+  //     await FirebaseAuth.instance
+  //         .signInWithEmailAndPassword(email: emailAddress, password: password)
+  //         .then((value) => {
+  //               Navigator.pushReplacement(
+  //                 context,
+  //                 MaterialPageRoute(
+  //                     builder: (context) => Home(
+  //                           user: value.user!,
+  //                         )),
+  //               )
+  //             });
+  //   } on FirebaseAuthException catch (e) {
+  //     setState(() {
+  //       loading = false;
+  //       errorMessage = "";
+  //     });
+  //     if (e.code == 'user-not-found') {
+  //       try {
+  //         await FirebaseAuth.instance
+  //             .createUserWithEmailAndPassword(
+  //               email: emailAddress,
+  //               password: password,
+  //             )
+  //             .then((value) => {
+  //                   DataHandler.signUpDataInsertion(
+  //                       uid: value.user!.uid,
+  //                       data: {
+  //                         'displayName': value.user!.displayName,
+  //                         'email': value.user!.email,
+  //                         'emailVerified': value.user!.emailVerified,
+  //                         'photoURL': value.user!.photoURL,
+  //                         'uid': value.user!.uid,
+  //                         // 'location':new
+  //                       }),
+  //                   Navigator.pushReplacement(
+  //                     context,
+  //                     MaterialPageRoute(
+  //                         builder: (context) => Onboard(
+  //                               user: value.user!,
+  //                             )),
+  //                   )
+  //                 });
+  //       } on FirebaseAuthException catch (e) {
+  //         if (e.code == 'weak-password') {
+  //           setState(() {
+  //             errorMessage = 'The password provided is too weak.';
+  //           });
+  //         } else if (e.code == 'email-already-in-use') {
+  //           setState(() {
+  //             errorMessage = 'The account already exists for that email.';
+  //           });
+  //         }
+  //       } catch (e) {
+  //         setState(() {
+  //           errorMessage = 'Some unknown error occoured.';
+  //         });
+  //         // print(e);
+  //       }
+  //     } else if (e.code == 'wrong-password') {
+  //       setState(() {
+  //         errorMessage = 'Wrong password provided for that user.';
+  //       });
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -215,9 +213,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       padding: const EdgeInsets.fromLTRB(40, 60, 40, 40),
                       child: InkWell(
                         onTap: () {
-                          if (!loading) {
-                            handlePasswordBasedAuth(emailAddress, password);
-                          }
+                          if (!loading) {}
                         },
                         child: Container(
                           width: double.infinity,
@@ -294,9 +290,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     padding:
                         const EdgeInsets.symmetric(vertical: 8, horizontal: 40),
                     child: InkWell(
-                      onTap: () {
-                        handleGoogleLogin(context);
-                      },
+                      onTap: () {},
                       child: Container(
                         width: double.infinity,
                         height: 40,
