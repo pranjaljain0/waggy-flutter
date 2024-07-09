@@ -42,6 +42,13 @@ class _AuthScreenState extends State<AuthScreen> {
     super.dispose();
   }
 
+  void passwordBasedAuth() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => Home(), maintainState: false),
+    );
+  }
+
   // void handleGoogleLogin(context) async {
   //   User? user = await Authentication.signInWithGoogle(context: context);
 
@@ -53,14 +60,14 @@ class _AuthScreenState extends State<AuthScreen> {
   //       'photoURL': user.photoURL,
   //       'uid': user.uid
   //     });
-  //     Navigator.pushReplacement(
-  //       context,
-  //       MaterialPageRoute(
-  //           builder: (context) => Home(
-  //                 user: user,
-  //               ),
-  //           maintainState: false),
-  //     );
+  // Navigator.pushReplacement(
+  //   context,
+  //   MaterialPageRoute(
+  //       builder: (context) => Home(
+  //             user: user,
+  //           ),
+  //       maintainState: false),
+  // );
   //   }
   // }
 
@@ -213,7 +220,9 @@ class _AuthScreenState extends State<AuthScreen> {
                       padding: const EdgeInsets.fromLTRB(40, 60, 40, 40),
                       child: InkWell(
                         onTap: () {
-                          if (!loading) {}
+                          if (!loading) {
+                            passwordBasedAuth();
+                          }
                         },
                         child: Container(
                           width: double.infinity,

@@ -38,7 +38,10 @@ class _SplashState extends State<Splash> {
       }
     }
 
-    Future.delayed(const Duration(milliseconds: 2000), () async {});
+    Future.delayed(const Duration(milliseconds: 3000), () async {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const AuthScreen()));
+    });
 
     return Scaffold(
       body: Container(

@@ -11,8 +11,16 @@ class NGOItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(color: AppColors.BLACK_COLOR),
+          color: AppColors.LIGHT_YELLOW_COLOR,
           borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.4),
+              spreadRadius: 2,
+              blurRadius: 9,
+              offset: Offset(0, 3), // changes position of shadow
+            ),
+          ],
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
